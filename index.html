@@ -2,300 +2,749 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Kalkulator Monitoring TSS</title>
+    <title>Kalkulator Monitoring TSS - Lautan Air Indonesia</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
-<header>
+<header class="header">
 
-    <div class="header-left">
-
-        <img src="images/logo.png" alt="Logo" class="logo">
-
+    <div class="logo-area">
+        <img src="images/logo.png" class="logo" alt="Logo">
         <div>
-
             <h1>Lautan Air Indonesia</h1>
-
             <p>Kalkulator Monitoring TSS</p>
-
         </div>
-
     </div>
 
 </header>
 
 <main class="container">
 
-    <!-- GLC 1 -->
+<!-- ================= GLC 1 ================= -->
 
-    <section class="card">
+<section class="card">
 
-        <h2>GLC 1</h2>
+<h2>GLC 1</h2>
 
-        <table>
+<table>
 
-            <thead>
+<thead>
 
-                <tr>
+<tr>
 
-                    <th>No</th>
+<th>No</th>
 
-                    <th>TSS</th>
+<th>TSS</th>
 
-                    <th>Resample</th>
+<th>Resample</th>
 
-                </tr>
+</tr>
 
-            </thead>
+</thead>
 
-            <tbody>
+<tbody>
 
-                <tr>
+<tr>
 
-                    <td>1</td>
+<td>1</td>
 
-                    <td><input type="number" id="g1t1"></td>
+<td>
 
-                    <td><input type="number" id="g1r1"></td>
+<div class="input-group">
 
-                </tr>
+<input
+type="number"
+id="g1t1"
+placeholder="0">
 
-                <tr>
+<span>ppm</span>
 
-                    <td>2</td>
+</div>
 
-                    <td><input type="number" id="g1t2"></td>
+</td>
 
-                    <td><input type="number" id="g1r2"></td>
+<td>
 
-                </tr>
+<div class="input-group">
 
-                <tr>
+<input
+type="number"
+id="g1r1"
+placeholder="0">
 
-                    <td>3</td>
+<span>ppm</span>
 
-                    <td><input type="number" id="g1t3"></td>
+</div>
 
-                    <td><input type="number" id="g1r3"></td>
+</td>
 
-                </tr>
+</tr>
 
-            </tbody>
+<tr>
 
-        </table>
+<td>2</td>
 
-        <div class="hasil">
+<td>
 
-            <p>Total Nilai : <span id="g1Total">0</span></p>
+<div class="input-group">
 
-            <p>Jumlah Data : <span id="g1Jumlah">0</span></p>
+<input
+type="number"
+id="g1t2"
+placeholder="0">
 
-            <p>Rata-rata : <span id="g1Rata">0</span> ppm</p>
+<span>ppm</span>
 
-            <p>Status : <span id="g1Status">-</span></p>
+</div>
 
-            <p>Target Data Berikutnya : <span id="g1Target">-</span></p>
+</td>
+
+<td>
+
+<div class="input-group">
+
+<input
+type="number"
+id="g1r2"
+placeholder="0">
+
+<span>ppm</span>
+
+</div>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>3</td>
+
+<td>
+
+<div class="input-group">
+
+<input
+type="number"
+id="g1t3"
+placeholder="0">
+
+<span>ppm</span>
+
+</div>
+
+</td>
+
+<td>
+
+<div class="input-group">
+
+<input
+type="number"
+id="g1r3"
+placeholder="0">
+
+<span>ppm</span>
+
+</div>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="hasil">
+
+<p>
+
+Total Nilai :
+
+<strong id="g1Total">
+
+0
+
+</strong>
+
+</p>
+
+<p>
+
+Jumlah Data :
+
+<strong id="g1Jumlah">
+
+0
+
+</strong>
+
+</p>
+
+<p>
+
+Rata-rata GLC :
+
+<strong id="g1Avg">
+
+0
+
+</strong>
+
+ppm
+
+</p>
+
+<p>
+
+Status :
+
+<strong id="g1Status">
+
+-
+
+</strong>
+
+</p>
+
+<p>
+
+Target Data Berikutnya :
+
+<strong id="g1Target">
+
+-
+
+</strong>
+
+</p>
+
+</div>
+
+</section>
+<!-- ================= GLC 2 ================= -->
+
+<section class="card">
+
+    <h2>GLC 2</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>No</th>
+
+                <th>TSS</th>
+
+                <th>Resample</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>1</td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g2t1"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g2r1"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>2</td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g2t2"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g2r2"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>3</td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g2t3"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g2r3"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <div class="hasil">
+
+        <p>
+
+            Total Nilai :
+
+            <strong id="g2Total">
+
+                0
+
+            </strong>
+
+        </p>
+
+        <p>
+
+            Jumlah Data :
+
+            <strong id="g2Jumlah">
+
+                0
+
+            </strong>
+
+        </p>
+
+        <p>
+
+            Rata-rata GLC :
+
+            <strong id="g2Avg">
+
+                0
+
+            </strong>
+
+            ppm
+
+        </p>
+
+        <p>
+
+            Status :
+
+            <strong id="g2Status">
+
+                -
+
+            </strong>
+
+        </p>
+
+        <p>
+
+            Target Data Berikutnya :
+
+            <strong id="g2Target">
+
+                -
+
+            </strong>
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ================= GLC 3 ================= -->
+
+<section class="card">
+
+    <h2>GLC 3</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>No</th>
+
+                <th>TSS</th>
+
+                <th>Resample</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>1</td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g3t1"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g3r1"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>2</td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g3t2"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g3r2"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>3</td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g3t3"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+                <td>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            id="g3r3"
+                            placeholder="0">
+
+                        <span>ppm</span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <div class="hasil">
+
+        <p>Total Nilai : <strong id="g3Total">0</strong></p>
+
+        <p>Jumlah Data : <strong id="g3Jumlah">0</strong></p>
+
+        <p>Rata-rata GLC : <strong id="g3Avg">0</strong> ppm</p>
+
+        <p>Status : <strong id="g3Status">-</strong></p>
+
+        <p>Target Data Berikutnya : <strong id="g3Target">-</strong></p>
+
+    </div>
+
+</section>
+<!-- ================= HASIL AKHIR ================= -->
+
+<section class="summary">
+
+    <h2>Hasil Perhitungan</h2>
+
+    <div class="summary-card">
+
+        <div class="summary-item">
+            <label>Rata-rata GLC 1</label>
+            <h3><span id="avg1">0.00</span> ppm</h3>
+        </div>
+
+        <div class="summary-item">
+            <label>Rata-rata GLC 2</label>
+            <h3><span id="avg2">0.00</span> ppm</h3>
+        </div>
+
+        <div class="summary-item">
+            <label>Rata-rata GLC 3</label>
+            <h3><span id="avg3">0.00</span> ppm</h3>
+        </div>
+
+        <hr>
+
+        <div class="summary-final">
+
+            <h2>RATA-RATA KESELURUHAN</h2>
+
+            <h1>
+
+                <span id="finalAverage">
+
+                    0.00
+
+                </span>
+
+                ppm
+
+            </h1>
+
+            <div id="finalStatus" class="status">
+
+                BELUM ADA DATA
+
+            </div>
 
         </div>
 
-    </section>
+    </div>
 
-    <!-- GLC 2 -->
+</section>
 
-    <section class="card">
+<!-- ================= TARGET ================= -->
 
-        <h2>GLC 2</h2>
+<section class="card">
 
-        <table>
+    <h2>Target Data Berikutnya</h2>
 
-            <thead>
+    <table>
 
-                <tr>
+        <thead>
 
-                    <th>No</th>
+            <tr>
 
-                    <th>TSS</th>
+                <th>GLC</th>
 
-                    <th>Resample</th>
+                <th>Target Maksimal</th>
 
-                </tr>
+            </tr>
 
-            </thead>
+        </thead>
 
-            <tbody>
+        <tbody>
 
-                <tr>
+            <tr>
 
-                    <td>1</td>
+                <td>GLC 1</td>
 
-                    <td><input type="number" id="g2t1"></td>
+                <td>
 
-                    <td><input type="number" id="g2r1"></td>
+                    <span id="targetGLC1">
 
-                </tr>
+                        -
 
-                <tr>
+                    </span>
 
-                    <td>2</td>
+                </td>
 
-                    <td><input type="number" id="g2t2"></td>
+            </tr>
 
-                    <td><input type="number" id="g2r2"></td>
+            <tr>
 
-                </tr>
+                <td>GLC 2</td>
 
-                <tr>
+                <td>
 
-                    <td>3</td>
+                    <span id="targetGLC2">
 
-                    <td><input type="number" id="g2t3"></td>
+                        -
 
-                    <td><input type="number" id="g2r3"></td>
+                    </span>
 
-                </tr>
+                </td>
 
-            </tbody>
+            </tr>
 
-        </table>
+            <tr>
 
-        <div class="hasil">
+                <td>GLC 3</td>
 
-            <p>Total Nilai : <span id="g2Total">0</span></p>
+                <td>
 
-            <p>Jumlah Data : <span id="g2Jumlah">0</span></p>
+                    <span id="targetGLC3">
 
-            <p>Rata-rata : <span id="g2Rata">0</span> ppm</p>
+                        -
 
-            <p>Status : <span id="g2Status">-</span></p>
+                    </span>
 
-            <p>Target Data Berikutnya : <span id="g2Target">-</span></p>
+                </td>
 
-        </div>
+            </tr>
 
-    </section>
+        </tbody>
 
-    <!-- GLC 3 -->
+    </table>
 
-    <section class="card">
+</section>
 
-        <h2>GLC 3</h2>
+<!-- ================= TOMBOL ================= -->
 
-        <table>
+<section class="action">
 
-            <thead>
+    <button id="btnHitung">
 
-                <tr>
+        Hitung
 
-                    <th>No</th>
+    </button>
 
-                    <th>TSS</th>
+    <button id="btnReset">
 
-                    <th>Resample</th>
+        Reset
 
-                </tr>
+    </button>
 
-            </thead>
+</section>
 
-            <tbody>
+<footer>
 
-                <tr>
+    © 2026
 
-                    <td>1</td>
+    <strong>
 
-                    <td><input type="number" id="g3t1"></td>
+        Lautan Air Indonesia
 
-                    <td><input type="number" id="g3r1"></td>
+    </strong>
 
-                </tr>
+    <br>
 
-                <tr>
+    Kalkulator Monitoring TSS
 
-                    <td>2</td>
-
-                    <td><input type="number" id="g3t2"></td>
-
-                    <td><input type="number" id="g3r2"></td>
-
-                </tr>
-
-                <tr>
-
-                    <td>3</td>
-
-                    <td><input type="number" id="g3t3"></td>
-
-                    <td><input type="number" id="g3r3"></td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-        <div class="hasil">
-
-            <p>Total Nilai : <span id="g3Total">0</span></p>
-
-            <p>Jumlah Data : <span id="g3Jumlah">0</span></p>
-
-            <p>Rata-rata : <span id="g3Rata">0</span> ppm</p>
-
-            <p>Status : <span id="g3Status">-</span></p>
-
-            <p>Target Data Berikutnya : <span id="g3Target">-</span></p>
-
-        </div>
-
-    </section>
-
-    <!-- HASIL AKHIR -->
-
-    <section class="summary">
-
-        <h2>Hasil Akhir</h2>
-
-        <div class="summary-box">
-
-            <p>Rata-rata GLC 1 : <span id="avg1">0</span> ppm</p>
-
-            <p>Rata-rata GLC 2 : <span id="avg2">0</span> ppm</p>
-
-            <p>Rata-rata GLC 3 : <span id="avg3">0</span> ppm</p>
-
-            <hr>
-
-            <h1 id="finalAverage">0 ppm</h1>
-
-            <h2 id="finalStatus">Belum Ada Data</h2>
-
-        </div>
-
-        <div class="button-group">
-
-            <button id="btnHitung">
-
-                Hitung
-
-            </button>
-
-            <button id="btnReset">
-
-                Reset
-
-            </button>
-
-        </div>
-
-    </section>
+</footer>
 
 </main>
 
