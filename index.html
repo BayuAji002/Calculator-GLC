@@ -1,1 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Kalkulator TSS - Lautan Air Indonesia</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="theme-color" content="#1E88E5">
+</head>
+
+<body>
+
+<header class="header">
+
+    <img src="images/logo.png" class="logo">
+
+    <div>
+        <h1>Lautan Air Indonesia</h1>
+        <p>Kalkulator Monitoring TSS</p>
+    </div>
+
+</header>
+
+<div class="container">
+
+<!-- ===================== GLC 1 ======================= -->
+
+<section class="card">
+
+<h2>GLC 1</h2>
+
+<table>
+
+<tr>
+<th>Data</th>
+<th>TSS</th>
+<th>Resample</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td><input type="number" id="g1t1"></td>
+<td><input type="number" id="g1r1"></td>
+</tr>
+
+<tr>
+<td>2</td>
+<td><input type="number" id="g1t2"></td>
+<td><input type="number" id="g1r2"></td>
+</tr>
+
+<tr>
+<td>3</td>
+<td><input type="number" id="g1t3"></td>
+<td><input type="number" id="g1r3"></td>
+</tr>
+
+</table>
+
+<div class="hasil">
+
+<p>Total Nilai :
+<span id="g1total">0</span>
+</p>
+
+<p>Jumlah Data :
+<span id="g1count">0</span>
+</p>
+
+<p>Rata-rata :
+<span id="g1avg">0</span> ppm
+</p>
+
+<p>Target Data Berikutnya :
+<span id="g1target">-</span>
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================== GLC 2 ======================= -->
+
+<section class="card">
+
+<h2>GLC 2</h2>
+
+<table>
+
+<tr>
+<th>Data</th>
+<th>TSS</th>
+<th>Resample</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td><input type="number" id="g2t1"></td>
+<td><input type="number" id="g2r1"></td>
+</tr>
+
+<tr>
+<td>2</td>
+<td><input type="number" id="g2t2"></td>
+<td><input type="number" id="g2r2"></td>
+</tr>
+
+<tr>
+<td>3</td>
+<td><input type="number" id="g2t3"></td>
+<td><input type="number" id="g2r3"></td>
+</tr>
+
+</table>
+
+<div class="hasil">
+
+<p>Total Nilai :
+<span id="g2total">0</span>
+</p>
+
+<p>Jumlah Data :
+<span id="g2count">0</span>
+</p>
+
+<p>Rata-rata :
+<span id="g2avg">0</span> ppm
+</p>
+
+<p>Target Data Berikutnya :
+<span id="g2target">-</span>
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================== GLC 3 ======================= -->
+
+<section class="card">
+
+<h2>GLC 3</h2>
+
+<table>
+
+<tr>
+<th>Data</th>
+<th>TSS</th>
+<th>Resample</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td><input type="number" id="g3t1"></td>
+<td><input type="number" id="g3r1"></td>
+</tr>
+
+<tr>
+<td>2</td>
+<td><input type="number" id="g3t2"></td>
+<td><input type="number" id="g3r2"></td>
+</tr>
+
+<tr>
+<td>3</td>
+<td><input type="number" id="g3t3"></td>
+<td><input type="number" id="g3r3"></td>
+</tr>
+
+</table>
+
+<div class="hasil">
+
+<p>Total Nilai :
+<span id="g3total">0</span>
+</p>
+
+<p>Jumlah Data :
+<span id="g3count">0</span>
+</p>
+
+<p>Rata-rata :
+<span id="g3avg">0</span> ppm
+</p>
+
+<p>Target Data Berikutnya :
+<span id="g3target">-</span>
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================== HASIL ======================= -->
+
+<section class="summary">
+
+<h2>Hasil Akhir</h2>
+
+<h1 id="finalAverage">
+
+0 ppm
+
+</h1>
+
+<h2 id="status">
+
+Belum Ada Data
+
+</h2>
+
+<button id="resetBtn">
+
+Reset Semua
+
+</button>
+
+</section>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
