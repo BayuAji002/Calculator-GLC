@@ -1,7 +1,7 @@
-/* ===========================
+/* ==========================================
    LAUTAN AIR INDONESIA
    Kalkulator Monitoring TSS
-=========================== */
+========================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -14,47 +14,49 @@
 
 body{
 
-    background:linear-gradient(135deg,#cdefff,#eef9ff);
-
-    min-height:100vh;
+    background:#eef7ff;
 
     color:#333;
 
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 
 .header{
 
-    background:#2196F3;
+    width:100%;
 
-    color:white;
+    background:linear-gradient(135deg,#2196F3,#42A5F5);
+
+    color:#fff;
+
+    padding:25px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+.logo-area{
 
     display:flex;
 
     align-items:center;
 
-    justify-content:center;
-
     gap:20px;
-
-    padding:25px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
 
 }
 
 .logo{
 
-    width:80px;
+    width:75px;
 
-    height:80px;
+    height:75px;
 
     object-fit:contain;
 
 }
 
-.header h1{
+.logo-area h1{
 
     font-size:30px;
 
@@ -62,13 +64,13 @@ body{
 
 }
 
-.header p{
+.logo-area p{
 
     opacity:.95;
 
 }
 
-/* CONTAINER */
+/* ================= CONTAINER ================= */
 
 .container{
 
@@ -76,23 +78,21 @@ body{
 
     max-width:1200px;
 
-    margin:auto;
-
-    padding:30px 0;
+    margin:30px auto;
 
 }
 
-/* CARD */
+/* ================= CARD ================= */
 
 .card{
 
     background:white;
 
-    border-radius:20px;
+    border-radius:18px;
 
     padding:25px;
 
-    margin-bottom:30px;
+    margin-bottom:25px;
 
     box-shadow:0 8px 20px rgba(0,0,0,.08);
 
@@ -102,7 +102,7 @@ body{
 
 .card:hover{
 
-    transform:translateY(-3px);
+    transform:translateY(-4px);
 
 }
 
@@ -114,7 +114,7 @@ body{
 
 }
 
-/* TABLE */
+/* ================= TABLE ================= */
 
 table{
 
@@ -124,43 +124,61 @@ table{
 
 }
 
-th{
+thead{
 
     background:#2196F3;
 
     color:white;
 
-    padding:12px;
+}
+
+th{
+
+    padding:14px;
 
 }
 
 td{
 
-    border:1px solid #ddd;
+    padding:12px;
 
-    padding:10px;
+    border-bottom:1px solid #ddd;
 
     text-align:center;
 
 }
 
-input{
+/* ================= INPUT ================= */
 
-    width:100%;
+.input-group{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.input-group input{
+
+    flex:1;
 
     padding:10px;
 
     border-radius:10px;
 
-    border:1px solid #bbb;
+    border:1px solid #ccc;
+
+    font-size:15px;
 
     text-align:center;
 
-    font-size:16px;
+    transition:.2s;
 
 }
 
-input:focus{
+.input-group input:focus{
 
     outline:none;
 
@@ -168,7 +186,15 @@ input:focus{
 
 }
 
-/* HASIL */
+.input-group span{
+
+    color:#1976D2;
+
+    font-weight:600;
+
+}
+
+/* ================= HASIL ================= */
 
 .hasil{
 
@@ -176,7 +202,7 @@ input:focus{
 
     background:#E3F2FD;
 
-    padding:18px;
+    padding:20px;
 
     border-radius:15px;
 
@@ -184,31 +210,32 @@ input:focus{
 
 .hasil p{
 
-    margin:8px 0;
+    display:flex;
 
-    font-weight:500;
+    justify-content:space-between;
 
-}
+    margin:10px 0;
 
-.hasil span{
-
-    font-weight:bold;
-
-    color:#1565C0;
+    font-size:16px;
 
 }
 
-/* SUMMARY */
+.hasil strong{
+
+    color:#0D47A1;
+
+}
+/* ================= SUMMARY ================= */
 
 .summary{
 
     background:white;
 
-    border-radius:20px;
+    border-radius:18px;
 
-    text-align:center;
+    padding:30px;
 
-    padding:35px;
+    margin-bottom:25px;
 
     box-shadow:0 8px 20px rgba(0,0,0,.08);
 
@@ -216,113 +243,327 @@ input:focus{
 
 .summary h2{
 
-    color:#1976D2;
+    color:#1565C0;
+
+    margin-bottom:20px;
+
+    text-align:center;
 
 }
 
-.summary h1{
+.summary-card{
 
-    font-size:55px;
+    display:grid;
 
-    margin:20px 0;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 
-    color:#0D47A1;
+    gap:20px;
 
 }
 
-/* STATUS */
+.summary-item{
 
-#status{
+    background:#E3F2FD;
 
-    padding:15px;
+    padding:20px;
 
     border-radius:15px;
 
-    color:white;
-
-    background:gray;
-
-    margin-bottom:25px;
+    text-align:center;
 
 }
 
-/* BUTTON */
+.summary-item label{
 
-button{
+    display:block;
 
-    background:#2196F3;
+    color:#666;
+
+    margin-bottom:10px;
+
+    font-size:15px;
+
+}
+
+.summary-item h3{
+
+    color:#0D47A1;
+
+    font-size:28px;
+
+}
+
+.summary-final{
+
+    grid-column:1/-1;
+
+    margin-top:20px;
+
+    text-align:center;
+
+}
+
+.summary-final h2{
+
+    color:#1565C0;
+
+    margin-bottom:15px;
+
+}
+
+.summary-final h1{
+
+    font-size:60px;
+
+    color:#0D47A1;
+
+    margin-bottom:20px;
+
+}
+
+/* ================= STATUS ================= */
+
+.status{
+
+    display:inline-block;
+
+    padding:12px 25px;
+
+    border-radius:30px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    background:#9E9E9E;
 
     color:white;
 
-    border:none;
+}
 
-    padding:14px 35px;
+/* nanti diubah JS */
+
+.status.good{
+
+    background:#4CAF50;
+
+}
+
+.status.bad{
+
+    background:#F44336;
+
+}
+
+/* ================= BUTTON ================= */
+
+.action{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    margin:35px 0;
+
+}
+
+button{
+
+    border:none;
 
     border-radius:12px;
 
-    cursor:pointer;
+    padding:15px 35px;
 
     font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
 
     transition:.3s;
 
 }
 
-button:hover{
+#btnHitung{
+
+    background:#2196F3;
+
+    color:white;
+
+}
+
+#btnHitung:hover{
 
     background:#1565C0;
 
 }
 
-/* RESPONSIVE */
+#btnReset{
 
-@media(max-width:768px){
+    background:#F44336;
 
-.header{
-
-flex-direction:column;
-
-text-align:center;
+    color:white;
 
 }
 
-.header h1{
+#btnReset:hover{
 
-font-size:24px;
+    background:#C62828;
+
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+
+    margin-top:40px;
+
+    text-align:center;
+
+    color:#666;
+
+    font-size:14px;
+
+    padding:25px;
+
+}
+
+/* ================= SCROLLBAR ================= */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#E3F2FD;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#42A5F5;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#1E88E5;
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+.logo-area{
+
+    flex-direction:column;
+
+    text-align:center;
 
 }
 
 .logo{
 
-width:65px;
+    width:65px;
 
-height:65px;
+    height:65px;
+
+}
+
+.logo-area h1{
+
+    font-size:24px;
 
 }
 
 table{
 
-font-size:14px;
+    font-size:14px;
 
 }
 
-input{
+th,td{
 
-font-size:14px;
-
-padding:8px;
+    padding:8px;
 
 }
 
-.summary h1{
+.input-group{
 
-font-size:38px;
+    flex-direction:column;
+
+}
+
+.input-group span{
+
+    font-size:13px;
+
+}
+
+.summary-final h1{
+
+    font-size:40px;
+
+}
+
+.action{
+
+    flex-direction:column;
 
 }
 
 button{
 
-width:100%;
+    width:100%;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.container{
+
+    width:98%;
+
+}
+
+.card{
+
+    padding:15px;
+
+}
+
+.summary{
+
+    padding:20px;
+
+}
+
+.hasil{
+
+    font-size:14px;
+
+}
+
+.summary-item h3{
+
+    font-size:22px;
+
+}
+
+.summary-final h1{
+
+    font-size:34px;
 
 }
 
