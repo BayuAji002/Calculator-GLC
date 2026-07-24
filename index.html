@@ -33,7 +33,6 @@
   <header class="bg-gradient-to-r from-skybrand-600 to-skybrand-700 text-white shadow-lg py-6 px-4 mb-6 sticky top-0 z-50">
     <div class="max-w-3xl mx-auto flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <!-- Logo Icon -->
         <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center font-bold text-xl border border-white/30">
           💧
         </div>
@@ -50,9 +49,9 @@
 
   <main class="max-w-3xl mx-auto px-4 space-y-6">
 
-    <!-- Summary / Target Card -->
+    <!-- Summary / Target Card Overall -->
     <div class="bg-white rounded-2xl p-6 shadow-md border border-skybrand-100">
-      <h2 class="text-xs font-bold uppercase tracking-wider text-skybrand-600 mb-2">Ringkasan & Target Overall</h2>
+      <h2 class="text-xs font-bold uppercase tracking-wider text-skybrand-600 mb-2">Ringkasan Total Seluruh GLC</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
         <div>
           <span class="text-sm text-slate-500">Rata-Rata Final (GLC 1 - 3):</span>
@@ -65,11 +64,11 @@
           </p>
         </div>
         
-        <!-- Target Prediction Card -->
+        <!-- Target Overall Info -->
         <div class="bg-skybrand-50 p-4 rounded-xl border border-skybrand-100">
-          <div class="text-xs font-semibold text-skybrand-700 mb-1">🎯 Proyeksi Target Data Berikutnya</div>
-          <p id="target-info" class="text-xs text-slate-600 leading-relaxed">
-            Masukkan data TSS untuk melihat kalkulasi batas maksimum sampel berikutnya agar rata-rata akhir tetap &le; 50 ppm.
+          <div class="text-xs font-semibold text-skybrand-700 mb-1">🎯 Status Akumulasi Keseluruhan</div>
+          <p id="overall-target-info" class="text-xs text-slate-600 leading-relaxed">
+            Target rata-rata per GLC adalah <strong>&le; 50.0 ppm</strong>. Masukkan data TSS di bawah untuk melihat analisis terperinci per GLC.
           </p>
         </div>
       </div>
@@ -88,8 +87,8 @@
     function renderCards() {
       const container = document.getElementById('glc-container');
       container.innerHTML = glcNames.map((glc, gIndex) => `
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-skybrand-100">
-          <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-skybrand-100 space-y-4">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-100">
             <h3 class="font-bold text-skybrand-900 text-lg flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-skybrand-500"></span>
               ${glc}
@@ -100,23 +99,29 @@
             </div>
           </div>
 
+          <!-- Input Fields -->
           <div class="grid grid-cols-1 gap-3">
             ${[1, 2, 3].map(sample => `
               <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
                   <label class="block text-xs font-semibold text-slate-600 mb-1">TSS Data ${sample} (ppm)</label>
-                  <input type="number" step="any" placeholder="Nilai TSS" id="tss_${gIndex}_${sample}" 
+                  <input type="number" step="any" placeholder="Nilai TSS utama" id="tss_${gIndex}_${sample}" 
                     oninput="calculate()" 
                     class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-skybrand-500 font-medium">
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-500 mb-1">TSS Resample ${sample} <span class="text-slate-400 font-normal">(opsional)</span></label>
-                  <input type="number" step="any" placeholder="Resample" id="resample_${gIndex}_${sample}" 
+                  <label class="block text-xs font-semibold text-slate-500 mb-1">TSS Resample ${sample} <span class="text-slate-400 font-normal">(tambahan data)</span></label>
+                  <input type="number" step="any" placeholder="Nilai resample" id="resample_${gIndex}_${sample}" 
                     oninput="calculate()" 
                     class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-skybrand-500 text-slate-600">
                 </div>
               </div>
             `).join('')}
+          </div>
+
+          <!-- Specific Target & Guidance Card per GLC -->
+          <div id="glc-target-card-${gIndex}" class="p-3.5 rounded-xl bg-skybrand-50 border border-skybrand-100 text-xs text-slate-700">
+            <strong>🎯 Target Batas ${glc}:</strong> Maksimal rata-rata 50 ppm.
           </div>
         </div>
       `).join('');
@@ -124,73 +129,105 @@
 
     function calculate() {
       let glcAverages = [0, 0, 0];
-      let totalSlotsFilled = 0;
-      let totalSumAll = 0;
+      let totalInputsFilledOverall = 0;
 
-      glcNames.forEach((_, gIndex) => {
+      glcNames.forEach((glcName, gIndex) => {
         let glcSum = 0;
         let glcCount = 0;
+        let baseCount = 0;
 
         for (let sample = 1; sample <= 3; sample++) {
           const tssInput = document.getElementById(`tss_${gIndex}_${sample}`).value;
           const resampleInput = document.getElementById(`resample_${gIndex}_${sample}`).value;
 
-          let val = null;
-          if (resampleInput !== '' && !isNaN(resampleInput)) {
-            val = parseFloat(resampleInput);
-          } else if (tssInput !== '' && !isNaN(tssInput)) {
-            val = parseFloat(tssInput);
+          // Process Base TSS
+          if (tssInput !== '' && !isNaN(tssInput)) {
+            glcSum += parseFloat(tssInput);
+            glcCount++;
+            baseCount++;
+            totalInputsFilledOverall++;
           }
 
-          if (val !== null) {
-            glcSum += val;
+          // Process Resample TSS (Adds as a new data point to sum and count)
+          if (resampleInput !== '' && !isNaN(resampleInput)) {
+            glcSum += parseFloat(resampleInput);
             glcCount++;
-            totalSumAll += val;
-            totalSlotsFilled++;
+            totalInputsFilledOverall++;
           }
         }
 
-        const glcAvg = glcCount > 0 ? glcSum / glcCount : 0;
-        glcAverages[gIndex] = glcAvg;
-        document.getElementById(`avg-glc-${gIndex}`).innerText = glcAvg.toFixed(2) + ' ppm';
+        const avgGLC = glcCount > 0 ? glcSum / glcCount : 0;
+        glcAverages[gIndex] = avgGLC;
+        document.getElementById(`avg-glc-${gIndex}`).innerText = avgGLC.toFixed(2) + ' ppm';
+
+        // Target & Guidance Card per GLC
+        const glcTargetCard = document.getElementById(`glc-target-card-${gIndex}`);
+
+        if (glcCount === 0) {
+          glcTargetCard.className = "p-3.5 rounded-xl bg-skybrand-50 border border-skybrand-100 text-xs text-slate-700";
+          glcTargetCard.innerHTML = `💡 <strong>Panduan ${glcName}:</strong> Target rata-rata akhir &le; 50 ppm. Batas total 3 data TSS utama adalah 150 ppm.`;
+        } else if (baseCount < 3) {
+          // Base data incomplete (1 or 2 filled)
+          const remainingBase = 3 - baseCount;
+          const targetMaxSum = (glcCount + remainingBase) * 50;
+          const remainingAllowedSum = targetMaxSum - glcSum;
+          const maxAvgRemaining = remainingAllowedSum / remainingBase;
+
+          if (maxAvgRemaining < 0) {
+            glcTargetCard.className = "p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800";
+            glcTargetCard.innerHTML = `⚠️ <strong>Peringatan ${glcName}:</strong> Total akumulasi saat ini (${glcSum.toFixed(1)} ppm dari ${glcCount} data) cukup tinggi (Rata-rata: ${avgGLC.toFixed(2)} ppm).`;
+          } else {
+            glcTargetCard.className = "p-3.5 rounded-xl bg-skybrand-50 border border-skybrand-200 text-xs text-skybrand-900";
+            glcTargetCard.innerHTML = `🎯 <strong>Target Sisa Sampel Utama ${glcName}:</strong> Masih ada ${remainingBase} data TSS utama kosong. Agar rata-rata &le; 50 ppm, rata-rata sampel berikutnya <strong>maksimal ${maxAvgRemaining.toFixed(1)} ppm</strong>.`;
+          }
+        } else {
+          // All 3 base TSS filled
+          if (avgGLC <= 50) {
+            glcTargetCard.className = "p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800";
+            glcTargetCard.innerHTML = `✅ <strong>${glcName} Memenuhi Target:</strong> Total ${glcCount} data terhitung dengan rata-rata <strong>${avgGLC.toFixed(2)} ppm</strong> (&le; 50 ppm).`;
+          } else {
+            // Average > 50 ppm -> Calculate required resample value
+            const newCount = glcCount + 1;
+            const targetNewSum = newCount * 50;
+            const maxResampleAllowed = targetNewSum - glcSum;
+
+            if (maxResampleAllowed < 0) {
+              glcTargetCard.className = "p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800";
+              glcTargetCard.innerHTML = `
+                🚨 <strong>Rata-rata ${glcName} melampaui target (${avgGLC.toFixed(2)} ppm dari ${glcCount} data)!</strong><br>
+                📌 Akumulasi saat ini (${glcSum.toFixed(1)} ppm) terlalu tinggi. Membutuhkan lebih dari 1 resample bernilai rendah untuk menurunkan rata-rata ke 50 ppm.
+              `;
+            } else {
+              glcTargetCard.className = "p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800";
+              glcTargetCard.innerHTML = `
+                🚨 <strong>Rata-rata ${glcName} melampaui target (${avgGLC.toFixed(2)} ppm dari ${glcCount} data)!</strong><br>
+                📌 <strong>Rekomendasi Resample:</strong> Data asli tetap dihitung (pembagi bertambah jadi ${newCount}). Isi <strong>TSS Resample maksimal ${maxResampleAllowed.toFixed(1)} ppm</strong> agar rata-rata ${glcName} turun ke &le; 50 ppm.
+              `;
+            }
+          }
+        }
       });
 
-      // Overall average across 3 GLCs
+      // Overall average across 3 GLCs: (GLC1_Avg + GLC2_Avg + GLC3_Avg) / 3
       const overallAvg = (glcAverages[0] + glcAverages[1] + glcAverages[2]) / 3;
       document.getElementById('final-avg').innerText = overallAvg.toFixed(2);
 
-      // Badge status
+      // Badge status & Overall info
       const badge = document.getElementById('status-badge');
-      if (totalSlotsFilled === 0) {
+      const overallInfo = document.getElementById('overall-target-info');
+
+      if (totalInputsFilledOverall === 0) {
         badge.className = 'inline-block mt-2 text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-600';
         badge.innerText = 'Menunggu Input Data';
+        overallInfo.innerHTML = 'Target rata-rata per GLC adalah <strong>&le; 50.0 ppm</strong>. Masukkan data TSS di bawah untuk melihat analisis terperinci per GLC.';
       } else if (overallAvg <= 50) {
         badge.className = 'inline-block mt-2 text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-700';
         badge.innerText = '✓ Memenuhi Target (≤ 50 ppm)';
+        overallInfo.innerHTML = `Rata-rata gabungan saat ini <strong>${overallAvg.toFixed(2)} ppm</strong>. Kualitas air memenuhi standar batas target.`;
       } else {
         badge.className = 'inline-block mt-2 text-xs font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-700';
         badge.innerText = '⚠️ Melebihi Target (> 50 ppm)';
-      }
-
-      // Target projection logic
-      const targetInfo = document.getElementById('target-info');
-      const emptySlots = 9 - totalSlotsFilled;
-
-      if (emptySlots === 0) {
-        targetInfo.innerHTML = overallAvg <= 50 
-          ? '<span class="text-emerald-700 font-semibold">Semua data terisi! Rata-rata akhir berhasil menjaga kualitas di bawah 50 ppm.</span>'
-          : '<span class="text-rose-700 font-semibold">Semua data terisi. Rata-rata akhir melebihi 50 ppm. Pertimbangkan evaluasi ulang/resample.</span>';
-      } else {
-        // Target total sum for 9 items across 3 GLCs to average 50 is 9 * 50 = 450
-        const targetTotalSum = 450;
-        const maxRemainingSum = targetTotalSum - totalSumAll;
-        const maxAvgPerRemaining = maxRemainingSum / emptySlots;
-
-        if (maxAvgPerRemaining < 0) {
-          targetInfo.innerHTML = `<span class="text-rose-600 font-semibold">Akumulasi saat ini sudah melebihi batas total target.</span> Rata-rata akhir akan melampaui 50 ppm meskipun data berikutnya bernilai 0.`;
-        } else {
-          targetInfo.innerHTML = `Sisa <strong>${emptySlots}</strong> data belum diisi. Agar rata-rata akhir &le; 50 ppm, rata-rata tiap sampel tersisa maksimal <strong>${maxAvgPerRemaining.toFixed(1)} ppm</strong>.`;
-        }
+        overallInfo.innerHTML = `Rata-rata gabungan saat ini <strong>${overallAvg.toFixed(2)} ppm</strong>. Periksa panduan resample di setiap GLC di bawah untuk menurunkan nilai TSS.`;
       }
     }
 
@@ -201,7 +238,7 @@
       }
     }
 
-    // Register simple offline service worker dynamic caching
+    // Register simple offline service worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         const swCode = `
