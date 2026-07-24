@@ -1,231 +1,220 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Kalkulator TSS - Lautan Air Indonesia</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <link rel="manifest" href="manifest.json">
-
-    <meta name="theme-color" content="#1E88E5">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator TSS - Lautan Air Indonesia</title>
+  <!-- Google Fonts & Tailwind CSS CDN -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+          colors: {
+            skybrand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
 </head>
+<body class="bg-skybrand-50 font-sans text-slate-800 min-h-screen pb-12">
 
-<body>
+  <!-- Header Section -->
+  <header class="bg-gradient-to-r from-skybrand-600 to-skybrand-700 text-white shadow-lg py-6 px-4 mb-6 sticky top-0 z-50">
+    <div class="max-w-3xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- Logo Icon -->
+        <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center font-bold text-xl border border-white/30">
+          💧
+        </div>
+        <div>
+          <h1 class="text-xl font-bold tracking-tight">Lautan Air Indonesia</h1>
+          <p class="text-xs text-skybrand-100 font-medium">Monitoring & Kalkulator TSS (Target &le; 50 ppm)</p>
+        </div>
+      </div>
+      <button onclick="resetAll()" class="text-xs bg-white/10 hover:bg-white/20 active:bg-white/30 text-white py-2 px-3 rounded-lg border border-white/20 transition">
+        Reset Data
+      </button>
+    </div>
+  </header>
 
-<header class="header">
+  <main class="max-w-3xl mx-auto px-4 space-y-6">
 
-    <img src="images/logo.png" class="logo">
-
-    <div>
-        <h1>Lautan Air Indonesia</h1>
-        <p>Kalkulator Monitoring TSS</p>
+    <!-- Summary / Target Card -->
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-skybrand-100">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-skybrand-600 mb-2">Ringkasan & Target Overall</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+        <div>
+          <span class="text-sm text-slate-500">Rata-Rata Final (GLC 1 - 3):</span>
+          <div class="flex items-baseline space-x-2 mt-1">
+            <span id="final-avg" class="text-3xl font-extrabold text-skybrand-900">0.00</span>
+            <span class="text-slate-500 font-semibold">ppm</span>
+          </div>
+          <p id="status-badge" class="inline-block mt-2 text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-600">
+            Menunggu Input Data
+          </p>
+        </div>
+        
+        <!-- Target Prediction Card -->
+        <div class="bg-skybrand-50 p-4 rounded-xl border border-skybrand-100">
+          <div class="text-xs font-semibold text-skybrand-700 mb-1">🎯 Proyeksi Target Data Berikutnya</div>
+          <p id="target-info" class="text-xs text-slate-600 leading-relaxed">
+            Masukkan data TSS untuk melihat kalkulasi batas maksimum sampel berikutnya agar rata-rata akhir tetap &le; 50 ppm.
+          </p>
+        </div>
+      </div>
     </div>
 
-</header>
-
-<div class="container">
-
-<!-- ===================== GLC 1 ======================= -->
-
-<section class="card">
-
-<h2>GLC 1</h2>
-
-<table>
-
-<tr>
-<th>Data</th>
-<th>TSS</th>
-<th>Resample</th>
-</tr>
-
-<tr>
-<td>1</td>
-<td><input type="number" id="g1t1"></td>
-<td><input type="number" id="g1r1"></td>
-</tr>
-
-<tr>
-<td>2</td>
-<td><input type="number" id="g1t2"></td>
-<td><input type="number" id="g1r2"></td>
-</tr>
-
-<tr>
-<td>3</td>
-<td><input type="number" id="g1t3"></td>
-<td><input type="number" id="g1r3"></td>
-</tr>
-
-</table>
-
-<div class="hasil">
-
-<p>Total Nilai :
-<span id="g1total">0</span>
-</p>
-
-<p>Jumlah Data :
-<span id="g1count">0</span>
-</p>
-
-<p>Rata-rata :
-<span id="g1avg">0</span> ppm
-</p>
-
-<p>Target Data Berikutnya :
-<span id="g1target">-</span>
-</p>
-
-</div>
-
-</section>
-
-<!-- ===================== GLC 2 ======================= -->
-
-<section class="card">
-
-<h2>GLC 2</h2>
-
-<table>
-
-<tr>
-<th>Data</th>
-<th>TSS</th>
-<th>Resample</th>
-</tr>
-
-<tr>
-<td>1</td>
-<td><input type="number" id="g2t1"></td>
-<td><input type="number" id="g2r1"></td>
-</tr>
-
-<tr>
-<td>2</td>
-<td><input type="number" id="g2t2"></td>
-<td><input type="number" id="g2r2"></td>
-</tr>
-
-<tr>
-<td>3</td>
-<td><input type="number" id="g2t3"></td>
-<td><input type="number" id="g2r3"></td>
-</tr>
-
-</table>
-
-<div class="hasil">
-
-<p>Total Nilai :
-<span id="g2total">0</span>
-</p>
-
-<p>Jumlah Data :
-<span id="g2count">0</span>
-</p>
-
-<p>Rata-rata :
-<span id="g2avg">0</span> ppm
-</p>
-
-<p>Target Data Berikutnya :
-<span id="g2target">-</span>
-</p>
-
-</div>
-
-</section>
-
-<!-- ===================== GLC 3 ======================= -->
-
-<section class="card">
-
-<h2>GLC 3</h2>
-
-<table>
-
-<tr>
-<th>Data</th>
-<th>TSS</th>
-<th>Resample</th>
-</tr>
-
-<tr>
-<td>1</td>
-<td><input type="number" id="g3t1"></td>
-<td><input type="number" id="g3r1"></td>
-</tr>
-
-<tr>
-<td>2</td>
-<td><input type="number" id="g3t2"></td>
-<td><input type="number" id="g3r2"></td>
-</tr>
-
-<tr>
-<td>3</td>
-<td><input type="number" id="g3t3"></td>
-<td><input type="number" id="g3r3"></td>
-</tr>
-
-</table>
-
-<div class="hasil">
-
-<p>Total Nilai :
-<span id="g3total">0</span>
-</p>
-
-<p>Jumlah Data :
-<span id="g3count">0</span>
-</p>
-
-<p>Rata-rata :
-<span id="g3avg">0</span> ppm
-</p>
-
-<p>Target Data Berikutnya :
-<span id="g3target">-</span>
-</p>
-
-</div>
-
-</section>
-
-<!-- ===================== HASIL ======================= -->
-
-<section class="summary">
-
-<h2>Hasil Akhir</h2>
-
-<h1 id="finalAverage">
-
-0 ppm
-
-</h1>
-
-<h2 id="status">
-
-Belum Ada Data
-
-</h2>
-
-<button id="resetBtn">
-
-Reset Semua
-
-</button>
-
-</section>
-
-</div>
-
-<script src="script.js"></script>
-
+    <!-- Input Cards for GLC 1, 2, 3 -->
+    <div id="glc-container" class="space-y-6">
+      <!-- Generated via JS -->
+    </div>
+
+  </main>
+
+  <script>
+    const glcNames = ['GLC 1', 'GLC 2', 'GLC 3'];
+
+    function renderCards() {
+      const container = document.getElementById('glc-container');
+      container.innerHTML = glcNames.map((glc, gIndex) => `
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-skybrand-100">
+          <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+            <h3 class="font-bold text-skybrand-900 text-lg flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-skybrand-500"></span>
+              ${glc}
+            </h3>
+            <div class="text-right">
+              <span class="text-xs text-slate-400 block">Rata-rata ${glc}</span>
+              <span id="avg-glc-${gIndex}" class="font-bold text-skybrand-700 text-base">0.00 ppm</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-3">
+            ${[1, 2, 3].map(sample => `
+              <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-600 mb-1">TSS Data ${sample} (ppm)</label>
+                  <input type="number" step="any" placeholder="Nilai TSS" id="tss_${gIndex}_${sample}" 
+                    oninput="calculate()" 
+                    class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-skybrand-500 font-medium">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-500 mb-1">TSS Resample ${sample} <span class="text-slate-400 font-normal">(opsional)</span></label>
+                  <input type="number" step="any" placeholder="Resample" id="resample_${gIndex}_${sample}" 
+                    oninput="calculate()" 
+                    class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-skybrand-500 text-slate-600">
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function calculate() {
+      let glcAverages = [0, 0, 0];
+      let totalSlotsFilled = 0;
+      let totalSumAll = 0;
+
+      glcNames.forEach((_, gIndex) => {
+        let glcSum = 0;
+        let glcCount = 0;
+
+        for (let sample = 1; sample <= 3; sample++) {
+          const tssInput = document.getElementById(`tss_${gIndex}_${sample}`).value;
+          const resampleInput = document.getElementById(`resample_${gIndex}_${sample}`).value;
+
+          let val = null;
+          if (resampleInput !== '' && !isNaN(resampleInput)) {
+            val = parseFloat(resampleInput);
+          } else if (tssInput !== '' && !isNaN(tssInput)) {
+            val = parseFloat(tssInput);
+          }
+
+          if (val !== null) {
+            glcSum += val;
+            glcCount++;
+            totalSumAll += val;
+            totalSlotsFilled++;
+          }
+        }
+
+        const glcAvg = glcCount > 0 ? glcSum / glcCount : 0;
+        glcAverages[gIndex] = glcAvg;
+        document.getElementById(`avg-glc-${gIndex}`).innerText = glcAvg.toFixed(2) + ' ppm';
+      });
+
+      // Overall average across 3 GLCs
+      const overallAvg = (glcAverages[0] + glcAverages[1] + glcAverages[2]) / 3;
+      document.getElementById('final-avg').innerText = overallAvg.toFixed(2);
+
+      // Badge status
+      const badge = document.getElementById('status-badge');
+      if (totalSlotsFilled === 0) {
+        badge.className = 'inline-block mt-2 text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-600';
+        badge.innerText = 'Menunggu Input Data';
+      } else if (overallAvg <= 50) {
+        badge.className = 'inline-block mt-2 text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-700';
+        badge.innerText = '✓ Memenuhi Target (≤ 50 ppm)';
+      } else {
+        badge.className = 'inline-block mt-2 text-xs font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-700';
+        badge.innerText = '⚠️ Melebihi Target (> 50 ppm)';
+      }
+
+      // Target projection logic
+      const targetInfo = document.getElementById('target-info');
+      const emptySlots = 9 - totalSlotsFilled;
+
+      if (emptySlots === 0) {
+        targetInfo.innerHTML = overallAvg <= 50 
+          ? '<span class="text-emerald-700 font-semibold">Semua data terisi! Rata-rata akhir berhasil menjaga kualitas di bawah 50 ppm.</span>'
+          : '<span class="text-rose-700 font-semibold">Semua data terisi. Rata-rata akhir melebihi 50 ppm. Pertimbangkan evaluasi ulang/resample.</span>';
+      } else {
+        // Target total sum for 9 items across 3 GLCs to average 50 is 9 * 50 = 450
+        const targetTotalSum = 450;
+        const maxRemainingSum = targetTotalSum - totalSumAll;
+        const maxAvgPerRemaining = maxRemainingSum / emptySlots;
+
+        if (maxAvgPerRemaining < 0) {
+          targetInfo.innerHTML = `<span class="text-rose-600 font-semibold">Akumulasi saat ini sudah melebihi batas total target.</span> Rata-rata akhir akan melampaui 50 ppm meskipun data berikutnya bernilai 0.`;
+        } else {
+          targetInfo.innerHTML = `Sisa <strong>${emptySlots}</strong> data belum diisi. Agar rata-rata akhir &le; 50 ppm, rata-rata tiap sampel tersisa maksimal <strong>${maxAvgPerRemaining.toFixed(1)} ppm</strong>.`;
+        }
+      }
+    }
+
+    function resetAll() {
+      if (confirm('Apakah Anda yakin ingin mengosongkan semua data?')) {
+        document.querySelectorAll('input').forEach(input => input.value = '');
+        calculate();
+      }
+    }
+
+    // Register simple offline service worker dynamic caching
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        const swCode = `
+          self.addEventListener('install', e => e.waitUntil(caches.open('pwa-v1').then(c => c.addAll(['./']))));
+          self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
+        `;
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+      });
+    }
+
+    // Initial render
+    renderCards();
+  </script>
 </body>
-
 </html>
